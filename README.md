@@ -1,17 +1,17 @@
-# react-native-screen-audio-recorders
+# react-native-recorder-audio-system
 
 React-native library, made to record system sounds
  of all android devices from version 10 and later.
 ## Installation
 
 ```sh
-npm install react-native-screen-audio-recorders
+npm install react-native-recorder-audio-system
 ```
 
 ## Usage android < 14
 
 ```ts
-import ScreenAudioRecorder, { Options } from 'react-native-screen-audio-recorders';
+import ScreenAudioRecorder, { Options } from 'react-native-recorder-audio-system ';
 
 
 
@@ -97,7 +97,7 @@ example
 if(android >= 14){code2}else {code1}
 
 ```ts
-import ScreenAudioRecorder, { Options } from 'react-native-screen-audio-recorders';
+import ScreenAudioRecorder, { Options } from 'react-native-recorder-audio-system ';
 
 
 
