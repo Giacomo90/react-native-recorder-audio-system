@@ -6,6 +6,7 @@ React-native library, made to record system sounds
 
 ## Installation
 
+install only NPM no GitHub!!!!
 ```sh
 npm install react-native-recorder-audio-system
 ```
