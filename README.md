@@ -2,19 +2,25 @@
 
 React-native library, made to record system sounds
  of all android devices from version 10 and later.
+
+
 ## Installation
 
 ```sh
 npm install react-native-recorder-audio-system
 ```
+compatible with react native 0.7 or higher.
+Warning: The methods of version 0.3.X are not compatible with this version.
+## Usage android > 10
 
-## Usage android < 14
+Tested with physical  with a android 10,13 and 15, but it is compatible with all versions.
+
 
 ```ts
-import ScreenAudioRecorder, { Options } from 'react-native-recorder-audio-system ';
+import ScreenAudioRecorder, { Options } from 'react-native-recorder-audio-system';
 
 
-
+// permissions required for operation and to avoid any crashes
   async function requestPermission () {
     const recordPermission = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.RECORD_AUDIO
@@ -28,9 +34,9 @@ import ScreenAudioRecorder, { Options } from 'react-native-recorder-audio-system
         );
 
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log('You can use the mic');
+          console.log('You can use the library record audio');
         } else {
-          console.log('Mic permission denied');
+          console.log(' permission denied');
         }
       } catch (err) {
         console.log(err);
@@ -42,33 +48,32 @@ import ScreenAudioRecorder, { Options } from 'react-native-recorder-audio-system
 
 useEffect(()=>{
 const options: Options = {
-  sampleRate: 16000,
-  channels: 1,
-  bitsPerSample: 16,
-  fileName: 'novo.wav',
-  fromMic: false,
-  saveFile: false,
-  audioEmitInterval: 1000
+ sampleRate:32000,
+ channelAudio:2,
+  bitAudio:16,
+   useMic:false
 };
 
 ScreenAudioRecorder.init(options);
 
 ScreenAudioRecorder.on('data', data => {
-  // your code, data = base64
+  console.log(data) // or other code
 });
 requestPermission () 
 },[])
 
 
 function Record(){
-  ScreenAudioRecorder.start();
-  // asks permission and if confirmed starts recording
+  ScreenAudioRecorder.start()
+  .then(rx=>{console.log(rx)}) // answers true if the required permissions have been accepted or false if the user has refused
+  .catch(err=>{comsole.log(err)}) // answer error
 }
 
 
 function stopRecord(){
- await AudioRecord.stop();
- // stop record, it is promise
+AudioRecord.stop();
+.then(rx=>{console.log(rx)}) // It only responds with it resf the recording has been stopped, otherwise it responds with error.
+.catch(err=>{condole.log(err))
 }
 
 return(...)
@@ -79,52 +84,16 @@ return(...)
 
 | Name | Description | Default |
 |------|-----------------------------------|-----------|
-|sampleRate| Sample Rate in hz. | 44100 |
-|channels| Channels, 1 = MONO, 2 = STEREO. | 1 |
-|bitsPerSample| Bits per sample. | 16 |
-|audioEmitInterval| Interval in miliseconds to receive audio base64 data to "on" event. | 0 |
-|fileName| Output file name. (Don't forget ".wav") | audio.wav |
-|fromMic| Record audio from microphone instead of device. For android before 10 even if the option is true, the audio will be captured from the microphone, because android doesn't support. | false |
-|saveFile | The captured audio must be recorded. | false |
+|sampleRate| 16000,22000,32000,44000,48000 | 22000|
+|channelAudio| Channels, 1 = MONO, 2 = STEREO. | 1 |
+|bitAudio| 8 or 16 bit | 8 |
+|useMic| false or true | false |
 
 
 
 
-## Usage android >= 14
-
-the 2 codes if used together must be separated, and not used together to avoid crashes with android 14 or ++
-example
-if(android >= 14){code2}else {code1}
-
-```ts
-import ScreenAudioRecorder, { Options } from 'react-native-recorder-audio-system ';
 
 
-
-useEffect(()=>{
-
-
-ScreenAudioRecorder.on('data', data => {
-  // your code, data = base64
-});
-
-},[])
-
-
-function Record(){
-  ScreenAudioRecorder.start();
-  // asks permission and if confirmed starts recording
-}
-
-
-function stopRecord(){
- await AudioRecord.stop();
- // stop record, it is promise
-}
-
-return(...)
-
-```
 
 
 I was forgetting, at least these requirements on the build
@@ -150,3 +119,9 @@ MIT
 
 code copied from 
 https://github.com/Nilsantos/react-native-screen-audio-recorder
+
+## Info
+
+Base library used for the STEREOPHONE application, many features were added later offline.
+
+You can use my library "react-native-streaming-playback" to listen to the recorded PCM from here
